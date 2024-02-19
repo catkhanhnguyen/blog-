@@ -11,7 +11,7 @@ function Header() {
             <li className='hover:font-bold cursor-pointer'>Contact Us</li>
         </ul>
         <button className='bg-red-500 rounded-full text-white flex items-center'>
-            Subcribe <IoLogoYoutube className='ml-3'/>
+            Subcribe <IoLogoYoutube className='ml-3 text-[20px]'/>
         </button>
     </div>
   )
