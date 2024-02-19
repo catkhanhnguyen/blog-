@@ -4,20 +4,16 @@ import PropTypes from 'prop-types'
 function IntroPost({ post }) {
 
   return (
-    <div>
-      <img src={post.coverImage} />
+    <div className='grid grid-cols-2 gap-8 mt-4 cursor-pointer'>
+      <img src={post.image} className='rounded-2xl object-cover h-full'/>
       <div>
-        <h4>{post.tag}</h4>
-        <h2 className='text-[23px] font-bold mt-5'>{post.title}</h2>
-        <h4 className='line-clamp-6 text-gray-400 mt-5'>{post.desc}</h4>
-        <div className='flex items-center mt-5'>
-          <img src="https://courses.tubeguruji.com/static/media/logo.8f2db318fe31ffaf5793.png"
-            className='w-[50px] rounded-full' />
-          <div className='ml-2'>
-            <h3 className='font-bold '>Tubeguruji</h3>
-            <h3 className='text-gray-500'>24 Sept 2024</h3>
-          </div>
-        </div>
+        <h4 className='text-red-500 mt-2'>Tags: {post.mealType.join(", ")}</h4>
+        <h2 className='text-[23px] font-bold mt-5'>{post.name}</h2>
+        <p className='text-gray-500'>Preparation Time: {post.prepTimeMinutes} minutes</p>
+        <p className='text-gray-500'>Cooking Time: {post.cookTimeMinutes} minutes</p>
+        <p className='text-gray-500'>Servings: {post.servings}</p>
+        <p className='text-gray-500'>Difficulty: {post.difficulty}</p>
+        <p className='text-gray-500'>Cuisine: {post.cuisine}</p>
       </div>
     </div>
   )
@@ -25,10 +21,17 @@ function IntroPost({ post }) {
 
 IntroPost.propTypes = {
   post: PropTypes.shape({
-    coverImage: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    prepTimeMinutes: PropTypes.number.isRequired,
+    cookTimeMinutes: PropTypes.number.isRequired,
+    servings: PropTypes.number.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    userId: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 }
 
