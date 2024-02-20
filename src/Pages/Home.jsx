@@ -36,7 +36,7 @@ function Home() {
       <Header />
       <Search selectedTag={(tag) => filterPosts(tag)} />
       {posts.length > 0 ? <IntroPost post={posts[0]} /> : null}
-      {posts.length > 0 ? <Blogs posts={posts} /> : null}
+      {posts.length > 0 ? <Blogs posts={posts.slice(1)} /> : null}
       <Footer />
     </div>
   );

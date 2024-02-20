@@ -1,8 +1,18 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 function IntroPost({ post }) {
+  const navigate = useNavigate()
+
+  const handlePostClick = (postId) => {
+    navigate(`/posts/${postId}`);
+  };
+
   return (
-    <div className='mx-[70] md:mx-[100px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'>
+    <div 
+      className='mx-[70] md:mx-[100px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'
+      onClick={() => handlePostClick(post.id)}
+    >
       <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
       <div className="flex flex-col justify-center">
         <div className="flex flex-wrap gap-2">

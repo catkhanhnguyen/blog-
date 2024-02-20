@@ -6,7 +6,7 @@ function Header() {
   const navigate = useNavigate()
   return (
     <div className='flex justify-between items-center'>
-        <img src={logo} className='w-[180px]' />
+        <img src={logo} onClick={() => navigate('/')} className='w-[180px] cursor-pointer' />
         <ul className='flex gap-4 md:gap-14'>
             <li onClick={() => navigate('/')} className='hover:font-bold cursor-pointer'>Home</li>
             <li className='hover:font-bold cursor-pointer'>About Us</li>
