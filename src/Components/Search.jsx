@@ -11,15 +11,15 @@ function Search() {
     },
     {
       id: 2,
-      name: 'React'
+      name: 'Lunch'
     },
     {
       id: 3,
-      name: 'React Native'
+      name: 'Dinner'
     },
     {
       id: 4,
-      name: 'Angular'
+      name: 'Snacks'
     },
     {
       id: 5,
@@ -27,7 +27,7 @@ function Search() {
     },
   ]
   return (
-    <div className='flex justify-center mt-8 flex-col px-[70] md:px-[150px]'>
+    <div className='flex justify-center mt-8 flex-col px-[70] md:px-[100px]'>
       <img src={banner} className='rounded-2xl' />
       <div className='flex items-center bg-white shadow-lg p-3 rounded-lg mt-[-20px] mx-[25%]'>
         <IoSearchOutline className='text-[20px] text-gray-400' />

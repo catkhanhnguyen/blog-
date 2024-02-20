@@ -1,22 +1,34 @@
-import PropTypes from 'prop-types'
-
+import PropTypes from 'prop-types';
 
 function IntroPost({ post }) {
-
   return (
-    <div className='grid grid-cols-2 gap-8 mt-4 cursor-pointer'>
-      <img src={post.image} className='rounded-2xl object-cover h-full'/>
-      <div>
-        <h4 className='text-red-500 mt-2'>Tags: {post.mealType.join(", ")}</h4>
-        <h2 className='text-[23px] font-bold mt-5'>{post.name}</h2>
-        <p className='text-gray-500'>Preparation Time: {post.prepTimeMinutes} minutes</p>
-        <p className='text-gray-500'>Cooking Time: {post.cookTimeMinutes} minutes</p>
-        <p className='text-gray-500'>Servings: {post.servings}</p>
-        <p className='text-gray-500'>Difficulty: {post.difficulty}</p>
-        <p className='text-gray-500'>Cuisine: {post.cuisine}</p>
+    <div className='mx-[70] md:mx-[100px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'>
+      <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
+      <div className="flex flex-col justify-center">
+        <div className="flex flex-wrap gap-2">
+          {post.mealType.map((type, index) => (
+            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type}</span>
+          ))}
+          {post.tags.map((tag, index) => (
+            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag}</span>
+          ))}
+        </div>
+        <h2 className='text-[40px]  text-white mt-5'>{post.name}</h2>
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          <p className='text-gray-500'>Preparation Time:</p>
+          <p className='text-white'>{post.prepTimeMinutes} minutes</p>
+          <p className='text-gray-500'>Cooking Time:</p>
+          <p className='text-white'>{post.cookTimeMinutes} minutes</p>
+          <p className='text-gray-500'>Servings:</p>
+          <p className='text-white'>{post.servings}</p>
+          <p className='text-gray-500'>Difficulty:</p>
+          <p className='text-white'>{post.difficulty}</p>
+          <p className='text-gray-500'>Cuisine:</p>
+          <p className='text-white'>{post.cuisine}</p>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 IntroPost.propTypes = {
@@ -33,6 +45,6 @@ IntroPost.propTypes = {
     image: PropTypes.string.isRequired,
     mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-}
+};
 
-export default IntroPost
+export default IntroPost;
