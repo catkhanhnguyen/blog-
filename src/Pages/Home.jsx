@@ -7,28 +7,39 @@ import Search from "../Components/Search"
 import { useEffect, useState } from "react";
 import GlobalApi from "../Services/GlobalApi"
 
-
 function Home() {
-  const [post,setPost]=useState([])
-  // const [orgPost,setOrgPost]=useState([])
+  const [posts, setPosts] = useState([]);
+  const [orgPosts, setOrgPosts] = useState([]);
 
   useEffect(() => {
-    getPost()
-  }, [])
-  const getPost = () => {
+    getPosts();
+  }, []);
+
+  const getPosts = () => {
     GlobalApi.getPost.then(res => {
-      setPost(res.data.recipes)
-    })
-  }
+      setPosts(res.data.recipes);
+      setOrgPosts(res.data.recipes);
+    });
+  };
+
+  const filterPosts = (tag) => {
+    if (tag === 'All') {
+      setPosts(orgPosts);
+      return;
+    }
+    const result = orgPosts.filter(item => item.mealType.includes(tag));
+    setPosts(result);
+  };
+
   return (
     <div>
       <Header />
-      <Search />
-      {post.length>0? <IntroPost post={post[0]} />:null}
-      {post.length>0?  <Blogs posts={post}/>:null}
+      <Search selectedTag={(tag) => filterPosts(tag)} />
+      {posts.length > 0 ? <IntroPost post={posts[0]} /> : null}
+      {posts.length > 0 ? <Blogs posts={posts} /> : null}
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

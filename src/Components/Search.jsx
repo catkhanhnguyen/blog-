@@ -1,8 +1,9 @@
 import { IoSearchOutline } from 'react-icons/io5'
 import banner from './../assets/Images/banner.jpg'
 import { useState } from 'react'
+import PropTypes from 'prop-types';
 
-function Search() {
+function Search({ selectedTag }) {
   const [activeIndex,setActiveIndex]=useState(0)
   const tags = [
     {
@@ -11,19 +12,19 @@ function Search() {
     },
     {
       id: 2,
-      name: 'Lunch'
+      name: 'Breakfast'
     },
     {
       id: 3,
-      name: 'Dinner'
+      name: 'Lunch'
     },
     {
       id: 4,
-      name: 'Snacks'
+      name: 'Dinner'
     },
     {
       id: 5,
-      name: 'UI/UX'
+      name: 'Snacks'
     },
   ]
   return (
@@ -37,7 +38,7 @@ function Search() {
         {tags.map((item, index) => (
           <ul
             key={item.id}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => {setActiveIndex(index); selectedTag(item.name)}}
             className={`${index==activeIndex?'bg-red-500 text-white':null}
             px-2 py-1 rounded-2xl
             md:rounded-full cursor-pointer md:px-4 hover:scale-110 
@@ -49,6 +50,10 @@ function Search() {
       </div>
     </div>
   )
+}
+
+Search.propTypes = {
+  selectedTag: PropTypes.string
 }
 
 export default Search
