@@ -11,6 +11,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [orgPosts, setOrgPosts] = useState([]);
 
+
   useEffect(() => {
     getPosts();
   }, []);

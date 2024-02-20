@@ -4,7 +4,8 @@ import { useState } from 'react'
 import PropTypes from 'prop-types';
 
 function Search({ selectedTag }) {
-  const [activeIndex,setActiveIndex]=useState(0)
+  const [activeIndex,setActiveIndex] = useState(0)
+
   const tags = [
     {
       id: 1,
@@ -32,7 +33,12 @@ function Search({ selectedTag }) {
       <img src={banner} className='rounded-2xl' />
       <div className='flex items-center bg-white shadow-lg p-3 rounded-lg mt-[-20px] mx-[25%]'>
         <IoSearchOutline className='text-[20px] text-gray-400' />
-        <input type='text' placeholder='Search' className='outlined-none ml-[20px]' />
+        <input
+          onChange={(e) => e.target.value}
+          type='text'
+          placeholder='Search'
+          className='outlined-none ml-[20px]'
+        />
       </div>
       <div className='flex gap-10 justify-center mt-5'>
         {tags.map((item, index) => (
