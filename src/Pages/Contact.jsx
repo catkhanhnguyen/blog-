@@ -1,8 +1,15 @@
+import ContactContent from "../Components/ContactContent"
+import Footer from "../Components/Footer"
+import Header from "../Components/Header"
 
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <div>
+      <Header />
+      <ContactContent />
+      <Footer />
+    </div>
   )
 }
 
