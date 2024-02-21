@@ -11,7 +11,6 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [orgPosts, setOrgPosts] = useState([]);
 
-
   useEffect(() => {
     getPosts();
   }, []);
@@ -23,19 +22,26 @@ function Home() {
     });
   };
 
-  const filterPosts = (tag) => {
-    if (tag === 'All') {
+  const filterPosts = (keyword) => {
+    if (keyword.trim() === '') {
       setPosts(orgPosts);
       return;
     }
-    const result = orgPosts.filter(item => item.mealType.includes(tag));
+    const result = orgPosts.filter(item => {
+      const lowerCaseKeyword = keyword.toLowerCase();
+      return (
+        item.name.toLowerCase().includes(lowerCaseKeyword) ||
+        item.tags.some(tag => tag.toLowerCase().includes(lowerCaseKeyword)) ||
+        item.mealType.some(mealType => mealType.toLowerCase().includes(lowerCaseKeyword))
+      );
+    });
     setPosts(result);
   };
 
   return (
     <div>
       <Header />
-      <Search selectedTag={(tag) => filterPosts(tag)} />
+      <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} />
       {posts.length > 0 ? <IntroPost post={posts[0]} /> : null}
       {posts.length > 0 ? <Blogs posts={posts.slice(1)} /> : null}
       <Footer />

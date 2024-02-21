@@ -3,38 +3,37 @@ import banner from './../assets/Images/banner.jpg'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
 
-function Search({ selectedTag }) {
-  const [activeIndex,setActiveIndex] = useState(0)
+function Search({ selectedTag, onSearch }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [keyword, setKeyword] = useState('');
 
   const tags = [
-    {
-      id: 1,
-      name: 'All'
-    },
-    {
-      id: 2,
-      name: 'Breakfast'
-    },
-    {
-      id: 3,
-      name: 'Lunch'
-    },
-    {
-      id: 4,
-      name: 'Dinner'
-    },
-    {
-      id: 5,
-      name: 'Snacks'
-    },
-  ]
+    { id: 1, name: 'All' },
+    { id: 2, name: 'Breakfast' },
+    { id: 3, name: 'Lunch' },
+    { id: 4, name: 'Dinner' },
+    { id: 5, name: 'Snacks' },
+  ];
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onSearch(keyword);
+    }
+  };
+
   return (
     <div className='flex justify-center mt-8 flex-col px-[70] md:px-[100px]'>
       <img src={banner} className='rounded-2xl' />
       <div className='flex items-center bg-white shadow-lg p-3 rounded-lg mt-[-20px] mx-[25%]'>
         <IoSearchOutline className='text-[20px] text-gray-400' />
         <input
-          onChange={(e) => e.target.value}
+          value={keyword}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
           type='text'
           placeholder='Search'
           className='outlined-none ml-[20px]'
@@ -44,8 +43,8 @@ function Search({ selectedTag }) {
         {tags.map((item, index) => (
           <ul
             key={item.id}
-            onClick={() => {setActiveIndex(index); selectedTag(item.name)}}
-            className={`${index==activeIndex?'bg-red-500 text-white':null}
+            onClick={() => { setActiveIndex(index); selectedTag(item.name) }}
+            className={`${index === activeIndex ? 'bg-red-500 text-white' : null}
             px-2 py-1 rounded-2xl
             md:rounded-full cursor-pointer md:px-4 hover:scale-110 
             border-red-500 transition-all duration-100 ease-in-out`}
@@ -59,7 +58,8 @@ function Search({ selectedTag }) {
 }
 
 Search.propTypes = {
-  selectedTag: PropTypes.string
+  selectedTag: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
 }
 
-export default Search
+export default Search;
