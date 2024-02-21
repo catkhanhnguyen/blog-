@@ -5,6 +5,7 @@ import ContentPost from '../Components/ContentPost';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import IntroPost from '../Components/IntroPost';
+import TopButton from '../Components/TopButton';
 
 function DetailPost() {
   const { id } = useParams();
@@ -30,6 +31,7 @@ function DetailPost() {
       <IntroPost post={post} />
       <ContentPost post={post} />
       <Footer />
+      <TopButton />
     </div>
   );
 }

@@ -17,7 +17,7 @@ function ContentPost({ post }) {
         <div className='pb-8 mt-4'>
           {post.instructions.map((inst, index) => (
             <div key={index} className="px-8 py-2">
-              <span className='bg-white px-2 py-1 text-black rounded-[50%] items-center mr-4'>{index+1}</span> {inst}
+              <span className='bg-white px-2 py-1 text-black rounded-full items-center mr-4'>{index+1}</span> {inst}
             </div>
           ))}
         </div>

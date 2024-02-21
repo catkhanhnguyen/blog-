@@ -6,6 +6,7 @@ import Search from "../Components/Search"
 
 import { useEffect, useState } from "react";
 import GlobalApi from "../Services/GlobalApi"
+import TopButton from "../Components/TopButton"
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -45,6 +46,7 @@ function Home() {
       {posts.length > 0 ? <IntroPost post={posts[0]} /> : null}
       {posts.length > 0 ? <Blogs posts={posts.slice(1)} /> : null}
       <Footer />
+      <TopButton />
     </div>
   );
 }
