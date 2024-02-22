@@ -5,23 +5,26 @@ import IntroPost from "../Components/IntroPost"
 import Search from "../Components/Search"
 
 import { useEffect, useState } from "react";
-import GlobalApi from "../Services/GlobalApi"
 import TopButton from "../Components/TopButton"
+import axios from "axios"
 
 function Home() {
+  const baseUrl = '/recipes'
+
   const [posts, setPosts] = useState([]);
   const [orgPosts, setOrgPosts] = useState([]);
 
   useEffect(() => {
-    getPosts();
+    axios.get(baseUrl)
+      .then(res => {
+        setPosts(res.data.recipes);
+        setOrgPosts(res.data.recipes);
+      })
+      .catch(error => {
+        console.error('Error fetching posts from database:', error);
+      });
   }, []);
 
-  const getPosts = () => {
-    GlobalApi.getPost.then(res => {
-      setPosts(res.data.recipes);
-      setOrgPosts(res.data.recipes);
-    });
-  };
 
   const filterPosts = (keyword) => {
     if (keyword.trim() === '') {

@@ -58,7 +58,7 @@ function Search({ selectedTag, onSearch }) {
 }
 
 Search.propTypes = {
-  selectedTag: PropTypes.string,
+  selectedTag: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
 }
 

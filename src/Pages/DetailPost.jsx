@@ -8,11 +8,12 @@ import IntroPost from '../Components/IntroPost';
 import TopButton from '../Components/TopButton';
 
 function DetailPost() {
+  const baseUrl = '/recipes'
   const { id } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://dummyjson.com/recipes/${id}`)
+    axios.get(`${baseUrl}/${id}`)
       .then(response => {
         setPost(response.data);
       })

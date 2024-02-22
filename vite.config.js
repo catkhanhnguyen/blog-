@@ -5,4 +5,13 @@ import tailwindcss from 'tailwindcss'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      "/recipes": {
+        target: "https://dummyjson.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })
