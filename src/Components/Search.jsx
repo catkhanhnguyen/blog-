@@ -2,10 +2,18 @@ import { IoSearchOutline } from 'react-icons/io5'
 import banner from './../assets/Images/banner.jpg'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
+import { useSpring, animated } from 'react-spring'; // Import thư viện react-spring
 
 function Search({ selectedTag, onSearch }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [keyword, setKeyword] = useState('');
+  
+  // Sử dụng useSpring để tạo hiệu ứng animation cho search box
+  const searchAnimation = useSpring({
+    from: { opacity: 0, transform: 'translateY(-100%)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+    config: { duration: 500 },
+  });
 
   const tags = [
     { id: 1, name: 'All' },
@@ -27,8 +35,15 @@ function Search({ selectedTag, onSearch }) {
 
   return (
     <div className='flex justify-center mt-8 flex-col px-[70] md:px-[100px]'>
-      <img src={banner} className='rounded-2xl' />
-      <div className='flex items-center bg-white shadow-lg p-3 rounded-lg mt-[-20px] mx-[25%]'>
+      <animated.img 
+        src={banner} 
+        className='rounded-2xl'
+        style={searchAnimation}
+      />
+      <animated.div 
+        className='flex items-center bg-white shadow-lg p-3 rounded-lg mt-[-20px] mx-[25%]'
+        style={searchAnimation}
+      >
         <IoSearchOutline className='text-[20px] text-gray-400' />
         <input
           value={keyword}
@@ -38,7 +53,7 @@ function Search({ selectedTag, onSearch }) {
           placeholder='Search'
           className='outlined-none ml-[20px]'
         />
-      </div>
+      </animated.div>
       <div className='flex gap-10 justify-center mt-5'>
         {tags.map((item, index) => (
           <ul
