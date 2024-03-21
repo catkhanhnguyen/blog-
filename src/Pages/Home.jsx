@@ -7,6 +7,7 @@ import Search from "../Components/Search"
 import { useEffect, useState } from "react";
 import TopButton from "../Components/TopButton"
 import axios from "axios"
+import TagFilter from "../Components/TagFilter"
 
 function Home() {
   const baseUrl = '/recipes'
@@ -27,6 +28,10 @@ function Home() {
 
 
   const filterPosts = (keyword) => {
+    if (keyword === 'All') { 
+      setPosts(orgPosts);
+      return;
+    }
     if (keyword.trim() === '') {
       setPosts(orgPosts);
       return;
@@ -46,8 +51,9 @@ function Home() {
     <div>
       <Header />
       <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} />
-      {posts.length > 0 ? <IntroPost post={posts[0]} /> : null}
-      {posts.length > 0 ? <Blogs posts={posts.slice(1)} /> : null}
+      {posts.length > 0 ? <IntroPost posts={posts} /> : null}
+      <TagFilter posts={posts} />
+      {posts.length > 4 ? <Blogs posts={posts.slice(4)} /> : null}
       <Footer />
       <TopButton />
     </div>

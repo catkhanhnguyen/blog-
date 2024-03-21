@@ -1,60 +1,74 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useSpring, animated } from 'react-spring';
 
-function IntroPost({ post }) {
-  const navigate = useNavigate()
+function IntroPost({ posts }) {
+  const navigate = useNavigate();
 
   const handlePostClick = (postId) => {
     navigate(`/posts/${postId}`);
   };
 
   return (
-    <div 
-      className='mx-[70] md:mx-[100px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'
-      onClick={() => handlePostClick(post.id)}
-    >
-      <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
-      <div className="flex flex-col justify-center">
-        <div className="flex flex-wrap gap-2">
-          {post.mealType.map((type, index) => (
-            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type}</span>
-          ))}
-          {post.tags.map((tag, index) => (
-            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag}</span>
-          ))}
-        </div>
-        <h2 className='text-[40px]  text-white mt-5'>{post.name}</h2>
-        <div className="grid grid-cols-2 gap-2 mt-3">
-          <p className='text-gray-500'>Preparation Time:</p>
-          <p className='text-white'>{post.prepTimeMinutes} minutes</p>
-          <p className='text-gray-500'>Cooking Time:</p>
-          <p className='text-white'>{post.cookTimeMinutes} minutes</p>
-          <p className='text-gray-500'>Servings:</p>
-          <p className='text-white'>{post.servings}</p>
-          <p className='text-gray-500'>Difficulty:</p>
-          <p className='text-white'>{post.difficulty}</p>
-          <p className='text-gray-500'>Cuisine:</p>
-          <p className='text-white'>{post.cuisine}</p>
-        </div>
-      </div>
+    <div className='mx-[70] md:mx-[40px] grid grid-cols-4 gap-4 mt-4'>
+      {posts.slice(0, 4).map((post) => (
+        <Post key={post.id} post={post} onClick={() => handlePostClick(post.id)} />
+      ))}
     </div>
   );
 }
 
+function Post({ post, onClick }) {
+  const [springProps, set] = useSpring(() => ({
+    scale: 1,
+    filter: 'brightness(100%)',
+    config: { tension: 300, friction: 10 }
+  }));
+
+  const limitedName = post.name.length > 20 ? post.name.slice(0, 20) + '...' : post.name;
+
+  return (
+    <animated.div
+      className='relative cursor-pointer shadow-md font-serif overflow-hidden'
+      onClick={onClick}
+      onMouseEnter={() => set({ scale: 1.02, filter: 'brightness(110%)' })}
+      onMouseLeave={() => set({ scale: 1, filter: 'brightness(100%)' })}
+      style={{
+        ...springProps,
+        willChange: 'transform, filter',
+        aspectRatio: '9/13'
+      }}
+    >
+      
+      <img src={post.image} alt="Recipe" className='object-cover w-full h-full' />
+      <div className="absolute flex items-center justify-center bg-black text-white mt-[-50px] mx-[5%]">
+        <span className="text-lg">{limitedName}</span>
+      </div>
+    </animated.div>
+  );
+}
+
 IntroPost.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    prepTimeMinutes: PropTypes.number.isRequired,
-    cookTimeMinutes: PropTypes.number.isRequired,
-    servings: PropTypes.number.isRequired,
-    difficulty: PropTypes.string.isRequired,
-    cuisine: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    userId: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      prepTimeMinutes: PropTypes.number.isRequired,
+      cookTimeMinutes: PropTypes.number.isRequired,
+      servings: PropTypes.number.isRequired,
+      difficulty: PropTypes.string.isRequired,
+      cuisine: PropTypes.string.isRequired,
+      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+      userId: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
+    })
+  ).isRequired,
+};
+
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default IntroPost;

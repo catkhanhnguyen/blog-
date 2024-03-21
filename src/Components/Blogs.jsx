@@ -10,7 +10,7 @@ function Blogs({ posts }) {
 
   return (
     <div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 px-10 md:px-15 lg:px-32'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-10 lg:px-6'>
         {posts.map((item) => (
           <div key={item.id} className='m-4 cursor-pointer' onClick={() => handlePostClick(item.id)}>
             <img src={item.image} className='w-full rounded-2xl object-cover h-[250px]' alt="Cover Image" />
@@ -47,7 +47,7 @@ Blogs.propTypes = {
       userId: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
       mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired, // Thêm PropTypes cho ingredients
+      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
 };

@@ -2,13 +2,12 @@ import { IoSearchOutline } from 'react-icons/io5'
 import banner from './../assets/Images/banner.jpg'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
-import { useSpring, animated } from 'react-spring'; // Import thư viện react-spring
+import { useSpring, animated } from 'react-spring';
 
 function Search({ selectedTag, onSearch }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [keyword, setKeyword] = useState('');
   
-  // Sử dụng useSpring để tạo hiệu ứng animation cho search box
   const searchAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(-100%)' },
     to: { opacity: 1, transform: 'translateY(0)' },
@@ -34,7 +33,7 @@ function Search({ selectedTag, onSearch }) {
   };
 
   return (
-    <div className='flex justify-center mt-8 flex-col px-[70] md:px-[100px]'>
+    <div className='flex justify-center mt-8 flex-col px-[70] md:px-[40px]'>
       <animated.img 
         src={banner} 
         className='rounded-2xl'

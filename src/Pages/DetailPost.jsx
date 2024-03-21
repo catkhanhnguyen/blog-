@@ -4,8 +4,8 @@ import axios from 'axios';
 import ContentPost from '../Components/ContentPost';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import IntroPost from '../Components/IntroPost';
 import TopButton from '../Components/TopButton';
+import Preview from '../Components/Preview';
 
 function DetailPost() {
   const baseUrl = '/recipes'
@@ -29,7 +29,7 @@ function DetailPost() {
   return (
     <div>
       <Header />
-      <IntroPost post={post} />
+      <Preview post={post} />
       <ContentPost post={post} />
       <Footer />
       <TopButton />
