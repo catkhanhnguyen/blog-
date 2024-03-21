@@ -52,7 +52,7 @@ function Home() {
       <Header />
       <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
-      <TagFilter posts={posts} />
+      <TagFilter posts={orgPosts} onTagClick={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)}/>
       {posts.length > 4 ? <Blogs posts={posts.slice(4)} /> : null}
       <Footer />
       <TopButton />

@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 
-function TagFilter({ posts }) {
-  const tags = ['Asian', 'Chicken', 'Indian', 'Salad', 'Italian', 'Dessert', 'Korean']
+function TagFilter({ posts, onTagClick }) {
+  const tags = ['Asian', 'Chicken', 'Indian', 'Salad', 'Italian', 'Dessert', 'Korean'];
+
+  const handleTagClick = (tag) => {
+    onTagClick(tag);
+  };
 
   const uniquePosts = tags.map(tag => {
     return posts.find(post => post.tags.includes(tag));
@@ -10,7 +14,7 @@ function TagFilter({ posts }) {
   return (
     <div className="grid grid-cols-7 mt-16">
       {uniquePosts.map((post, index) => (
-        <div key={index} className="flex flex-col items-center cursor-pointer">
+        <div key={index} className="flex flex-col items-center cursor-pointer" onClick={() => handleTagClick(tags[index])}>
           {post && (
             <img
               src={post.image}
@@ -41,6 +45,7 @@ TagFilter.propTypes = {
       mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
+  onTagClick: PropTypes.func.isRequired,
 };
 
 export default TagFilter;
