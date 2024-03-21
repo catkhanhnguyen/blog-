@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function ContentPost({ post }) {
   return (
-    <div className='font-serif mx-[70] md:mx-[100px] mt-4 mb-24'>
+    <div className='font-serif mx-[70] md:mx-[70px] mt-4 mb-24'>
       <h2 className='text-[40px] mt-5 text-center'>Ingredients</h2>
       <div className="grid grid-cols-3 gap-4 mt-4">
         {post.ingredients.map((ingr, index) => (
