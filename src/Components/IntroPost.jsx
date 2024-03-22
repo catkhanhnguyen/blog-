@@ -58,17 +58,51 @@ IntroPost.propTypes = {
       servings: PropTypes.number.isRequired,
       difficulty: PropTypes.string.isRequired,
       cuisine: PropTypes.string.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+      tags: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
       userId: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
-      mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
+      mealTypes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
     })
   ).isRequired,
 };
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    prepTimeMinutes: PropTypes.number.isRequired,
+    cookTimeMinutes: PropTypes.number.isRequired,
+    servings: PropTypes.number.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    userId: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    mealTypes: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      })
+    ).isRequired,
+  }).isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
 export default IntroPost;
+
+

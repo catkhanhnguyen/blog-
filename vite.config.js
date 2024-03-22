@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/recipes": {
-        target: "https://dummyjson.com",
+        target: "http://localhost:8080",
         changeOrigin: true,
         secure: false,
       },

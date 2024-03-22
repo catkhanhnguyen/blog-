@@ -10,7 +10,7 @@ function TagFilter({ posts, onTagClick }) {
   };
 
   const uniquePosts = tags.map(tag => {
-    return posts.find(post => post.tags.includes(tag));
+    return posts.find(post => post.tags.some(t => t.name === tag));
   });
 
   const [hoveredTag, setHoveredTag] = useState(null);
@@ -65,13 +65,26 @@ TagFilter.propTypes = {
       servings: PropTypes.number.isRequired,
       difficulty: PropTypes.string.isRequired,
       cuisine: PropTypes.string.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+      tags: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
       userId: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
-      mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
+      mealType: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
+      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
   onTagClick: PropTypes.func.isRequired,
 };
 
 export default TagFilter;
+
+

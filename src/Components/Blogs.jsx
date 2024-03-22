@@ -19,11 +19,11 @@ function Blogs({ posts }) {
               <h3 className='line-clamp-3 text-gray-500 mt-3'>{item.cookTimeMinutes} minutes cooking • Servings: {item.servings}</h3>
             </div>
             <div className="flex flex-wrap gap-2 mt-4">
-              {item.mealType.map((type, index) => (
-                <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type}</span>
+              {item.mealTypes.map((type) => (
+                <span key={type.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type.name}</span>
               ))}
-              {item.tags.map((tag, index) => (
-                <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag}</span>
+              {item.tags.map((tag) => (
+                <span key={tag.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag.name}</span>
               ))}
             </div>
           </div>
@@ -43,10 +43,20 @@ Blogs.propTypes = {
       servings: PropTypes.number.isRequired,
       difficulty: PropTypes.string.isRequired,
       cuisine: PropTypes.string.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+      tags: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
       userId: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
-      mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
+      mealTypes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        })
+      ).isRequired,
       ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,

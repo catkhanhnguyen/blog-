@@ -18,8 +18,8 @@ function Home() {
   useEffect(() => {
     axios.get(baseUrl)
       .then(res => {
-        setPosts(res.data.recipes);
-        setOrgPosts(res.data.recipes);
+        setPosts(res.data.content);
+        setOrgPosts(res.data.content);
       })
       .catch(error => {
         console.error('Error fetching posts from database:', error);
