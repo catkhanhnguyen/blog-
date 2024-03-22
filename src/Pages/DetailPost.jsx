@@ -42,7 +42,7 @@ function DetailPost() {
   }
 
   return (
-    <div>
+    <div className='montaga-regular'>
       <Header />
       <div className="flex">
         <div>

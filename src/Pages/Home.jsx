@@ -46,6 +46,20 @@ function Home() {
     setPosts(result);
   };
 
+  const filterByTag = (tagId) => {
+    if (tagId === "") {
+      setPosts(orgPosts);
+      return;
+    }
+    axios.get(`${baseUrl}/tags/${tagId}`)
+      .then(res => {
+        setPosts(res.data);
+      })
+      .catch(error => {
+        console.error('Error fetching posts by tag from database:', error);
+      });
+  };
+
   const filterByMealType = (mealTypeId) => {
     if (mealTypeId === "") {
       setPosts(orgPosts);
@@ -61,11 +75,11 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="montaga-regular">
       <Header />
-      <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
+      <Search onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
-      <TagFilter posts={orgPosts} onTagClick={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)}/>
+      <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)}/>
       {posts.length > 4 ? <Blogs posts={posts.slice(4)} /> : null}
       <Footer />
       <TopButton />

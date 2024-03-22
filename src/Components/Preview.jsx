@@ -10,7 +10,7 @@ function Preview({ post }) {
 
   return (
     <div 
-      className='mx-[70] md:mx-[70px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'
+      className='mx-[70] md:mx-[70px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md montaga-regular'
       onClick={handlePostClick}
     >
       <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />

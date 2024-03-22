@@ -29,7 +29,7 @@ function Post({ post, onClick }) {
 
   return (
     <animated.div
-      className='relative cursor-pointer shadow-md font-serif overflow-hidden'
+      className='relative cursor-pointer shadow-md montaga-regular overflow-hidden'
       onClick={onClick}
       onMouseEnter={() => set({ scale: 1.02, filter: 'brightness(110%)' })}
       onMouseLeave={() => set({ scale: 1, filter: 'brightness(100%)' })}
