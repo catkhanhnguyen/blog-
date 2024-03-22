@@ -57,7 +57,7 @@ Blogs.propTypes = {
           name: PropTypes.string.isRequired
         })
       ).isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+      ingredients: PropTypes.PropTypes.string.isRequired,
     })
   ).isRequired,
 };

@@ -28,7 +28,7 @@ function TagFilter({ posts, onTagClick }) {
       transform: isHovered ? 'scale(1.1)' : 'scale(1)',
       opacity: isHovered ? 0.8 : 1,
     });
-  });
+  });  
 
   return (
     <animated.div style={tagsAnimation} className="grid grid-cols-7 mt-16">
@@ -73,13 +73,13 @@ TagFilter.propTypes = {
       ).isRequired,
       userId: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
-      mealType: PropTypes.arrayOf(
+      mealTypes: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired
         })
       ).isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+      ingredients: PropTypes.string.isRequired,
     })
   ).isRequired,
   onTagClick: PropTypes.func.isRequired,

@@ -4,9 +4,11 @@ import { useState } from 'react'
 import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
 
-function Search({ selectedTag, onSearch }) {
+function Search({ onSearch, filterByMealType }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [keyword, setKeyword] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [mealType, setMealType] = useState('');
   
   const searchAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(-100%)' },
@@ -15,11 +17,11 @@ function Search({ selectedTag, onSearch }) {
   });
 
   const tags = [
-    { id: 1, name: 'All' },
-    { id: 2, name: 'Breakfast' },
-    { id: 3, name: 'Lunch' },
-    { id: 4, name: 'Dinner' },
-    { id: 5, name: 'Snacks' },
+    { id: 0, name: 'All' },
+    { id: 1, name: 'Dinner' },
+    { id: 2, name: 'Lunch' },
+    { id: 3, name: 'Snacks' },
+    { id: 4, name: 'Dessert' },
   ];
 
   const handleInputChange = (e) => {
@@ -30,6 +32,12 @@ function Search({ selectedTag, onSearch }) {
     if (e.key === 'Enter') {
       onSearch(keyword);
     }
+  };
+
+  const handleMealTypeClick = (mealTypeId) => {
+    setActiveIndex(mealTypeId);
+    setMealType(mealTypeId === activeIndex ? '' : mealTypeId);
+    filterByMealType(mealTypeId === activeIndex ? '' : mealTypeId);
   };
 
   return (
@@ -57,7 +65,7 @@ function Search({ selectedTag, onSearch }) {
         {tags.map((item, index) => (
           <ul
             key={item.id}
-            onClick={() => { setActiveIndex(index); selectedTag(item.name) }}
+            onClick={() => { handleMealTypeClick(item.id) }}
             className={`${index === activeIndex ? 'bg-red-500 text-white' : null}
             px-2 py-1 rounded-2xl
             md:rounded-full cursor-pointer md:px-4 hover:scale-110 
@@ -72,8 +80,9 @@ function Search({ selectedTag, onSearch }) {
 }
 
 Search.propTypes = {
-  selectedTag: PropTypes.func.isRequired,
+  filterByMealType: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
 }
 
 export default Search;
+

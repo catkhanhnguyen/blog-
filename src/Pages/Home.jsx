@@ -40,17 +40,30 @@ function Home() {
       const lowerCaseKeyword = keyword.toLowerCase();
       return (
         item.name.toLowerCase().includes(lowerCaseKeyword) ||
-        item.tags.some(tag => tag.toLowerCase().includes(lowerCaseKeyword)) ||
-        item.mealType.some(mealType => mealType.toLowerCase().includes(lowerCaseKeyword))
+        item.tags.some(tag => tag.toLowerCase().includes(lowerCaseKeyword))
       );
     });
     setPosts(result);
   };
 
+  const filterByMealType = (mealTypeId) => {
+    if (mealTypeId === "") {
+      setPosts(orgPosts);
+      return;
+    }
+    axios.get(`${baseUrl}/mealtypes/${mealTypeId}`)
+      .then(res => {
+        setPosts(res.data);
+      })
+      .catch(error => {
+        console.error('Error fetching posts by meal type from database:', error);
+      });
+  };
+
   return (
     <div>
       <Header />
-      <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} />
+      <Search selectedTag={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
       <TagFilter posts={orgPosts} onTagClick={(tag) => filterPosts(tag)} onSearch={(keyword) => filterPosts(keyword)}/>
       {posts.length > 4 ? <Blogs posts={posts.slice(4)} /> : null}

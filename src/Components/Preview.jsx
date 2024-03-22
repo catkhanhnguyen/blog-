@@ -2,25 +2,25 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 function Preview({ post }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handlePostClick = (postId) => {
-    navigate(`/posts/${postId}`);
+  const handlePostClick = () => {
+    navigate(`/posts/${post.id}`);
   };
 
   return (
     <div 
       className='mx-[70] md:mx-[70px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md font-serif'
-      onClick={() => handlePostClick(post.id)}
+      onClick={handlePostClick}
     >
       <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
       <div className="flex flex-col justify-center">
         <div className="flex flex-wrap gap-2">
-          {post.mealType.map((type, index) => (
-            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type}</span>
+          {post.mealTypes.map((type) => (
+            <span key={type.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type.name}</span>
           ))}
-          {post.tags.map((tag, index) => (
-            <span key={index} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag}</span>
+          {post.tags.map((tag) => (
+            <span key={tag.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag.name}</span>
           ))}
         </div>
         <h2 className='text-[40px]  text-white mt-5'>{post.name}</h2>
@@ -50,10 +50,20 @@ Preview.propTypes = {
     servings: PropTypes.number.isRequired,
     difficulty: PropTypes.string.isRequired,
     cuisine: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      })
+    ).isRequired,
     userId: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    mealType: PropTypes.arrayOf(PropTypes.string).isRequired,
+    mealTypes: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      })
+    ).isRequired,
   }).isRequired,
 };
 
