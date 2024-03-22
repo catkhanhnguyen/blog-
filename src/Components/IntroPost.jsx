@@ -10,8 +10,8 @@ function IntroPost({ posts }) {
   };
 
   return (
-    <div className='mx-[70] md:mx-[40px] grid grid-cols-4 gap-4 mt-4'>
-      {posts.slice(0, 4).map((post) => (
+    <div className='mx-[70] md:mx-[40px] grid grid-cols-3 gap-8 mt-4'>
+      {posts.slice(0, 3).map((post) => (
         <Post key={post.id} post={post} onClick={() => handlePostClick(post.id)} />
       ))}
     </div>

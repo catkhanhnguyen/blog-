@@ -80,7 +80,7 @@ function Home() {
       <Search onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
       <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)}/>
-      {posts.length > 4 ? <Blogs posts={posts.slice(4)} /> : null}
+      {posts.length > 3 ? <Blogs posts={posts.slice(3)} /> : null}
       <Footer />
       <TopButton />
     </div>
