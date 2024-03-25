@@ -17,7 +17,7 @@ function TagFilter({ posts, onTagClick }) {
     onTagClick(tagId);
   };
 
-  // Sử dụng tagMappings để lấy tagId tương ứng với tagName
+
   const uniquePosts = tagMappings.map(tag => {
     return posts.find(post => post.tags.some(t => t.name === tag.tagName));
   });

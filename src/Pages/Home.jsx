@@ -61,10 +61,11 @@ function Home() {
   };
 
   const filterByMealType = (mealTypeId) => {
-    if (mealTypeId === "") {
+    if (mealTypeId === "" || mealTypeId === 0) {
       setPosts(orgPosts);
       return;
     }
+
     axios.get(`${baseUrl}/mealtypes/${mealTypeId}`)
       .then(res => {
         setPosts(res.data);
@@ -73,6 +74,8 @@ function Home() {
         console.error('Error fetching posts by meal type from database:', error);
       });
   };
+  
+  
 
   return (
     <div className="montaga-regular">
