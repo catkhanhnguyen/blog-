@@ -103,7 +103,11 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
 
         <div>
           <label htmlFor="difficulty" className="block text-[16px] font-medium text-gray-700">Difficulty:</label>
-          <input type="text" id="difficulty" name="difficulty" value={formData.difficulty} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <select id="difficulty" name="difficulty" value={formData.difficulty} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
         </div>
 
         <div>

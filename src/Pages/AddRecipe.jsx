@@ -29,15 +29,17 @@ function AddRecipe() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const modifiedValue = name === 'difficulty' ? value.toString() : value;
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: modifiedValue
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const modifiedFormData = { ...formData };
+    modifiedFormData.difficulty = formData.difficulty.toString();
     modifiedFormData.ingredients = modifiedFormData.ingredients.join('\n');
     modifiedFormData.instructions = modifiedFormData.instructions.join('\n');
 
