@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { useNavigate } from 'react-router-dom';
 import logo from './../assets/Images/logo.jpg';
-import { IoLogoYoutube } from "react-icons/io5";
+import { IoBrushSharp } from "react-icons/io5";
 
 function Header() {
   const navigate = useNavigate();
@@ -36,8 +36,8 @@ function Header() {
             <li onClick={() => navigate('/contact')} className='hover:font-bold cursor-pointer'>Contact Us</li>
             <li onClick={() => navigate('/collection')} className='hover:font-bold cursor-pointer'>Collection</li>
         </ul>
-        <button className='bg-red-500 rounded-full text-white flex items-center'>
-            Subcribe <IoLogoYoutube className='ml-3 text-[20px]'/>
+        <button className='bg-red-500 rounded-full text-white flex items-center mr-10'>
+            Add recipe <IoBrushSharp className='ml-1 text-[20px]'/>
         </button>
     </animated.div>
   );

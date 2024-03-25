@@ -3,6 +3,7 @@ import Home from './Pages/Home';
 import DetailPost from './Pages/DetailPost';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
+import AddRecipe from './Pages/AddRecipe';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/posts/:id" element={<DetailPost />} />
         <Route path="/collection" element={<Contact />} />
+        <Route path="/addrecipe" element={<AddRecipe />} />
       </Routes>
     </Router>
   );
