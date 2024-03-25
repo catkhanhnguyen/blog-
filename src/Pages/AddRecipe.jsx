@@ -76,6 +76,10 @@ function AddRecipe() {
       });
   };
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   return (
     <div className='montaga-regular mb-16'>
       <Header />
@@ -84,6 +88,7 @@ function AddRecipe() {
         formData={formData}
         handleChange={handleChange}
         errorMessage={errorMessage}
+        handleCancel={handleCancel}
       />
     </div>
   );

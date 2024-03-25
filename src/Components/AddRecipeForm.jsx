@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function AddRecipeForm({ handleSubmit, formData, handleChange }) {
+function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
   const [ingredientList, setIngredientList] = useState(formData.ingredients);
   const [instructionList, setInstructionList] = useState(formData.instructions);
+  
 
   const handleAddIngredient = () => {
     setIngredientList(prevList => [...prevList, '']);
@@ -42,6 +43,8 @@ function AddRecipeForm({ handleSubmit, formData, handleChange }) {
     const arrayValue = value.split(',').map(item => Number(item.trim()));
     handleChange({ target: { name, value: arrayValue } });
   };
+
+
   return (
     <div className="max-w-lg mx-auto">
       <h2 className="text-[36px] font-semibold mb-4 text-center">Add New Recipe</h2>
@@ -149,8 +152,9 @@ function AddRecipeForm({ handleSubmit, formData, handleChange }) {
           />
         </div>
 
-        <div>
+        <div className="flex justify-between gap-16">
           <button type="submit" className="bg-black w-full mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Recipe</button>
+          <button type="button" onClick={handleCancel} className="w-full mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Cancel</button>
         </div>
       </form>
     </div>
@@ -160,6 +164,7 @@ function AddRecipeForm({ handleSubmit, formData, handleChange }) {
 AddRecipeForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
   formData: PropTypes.shape({
     name: PropTypes.string.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
