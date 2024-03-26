@@ -12,6 +12,16 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/tags": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/mealtypes": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 })

@@ -28,10 +28,6 @@ function Home() {
 
 
   const filterPosts = (keyword) => {
-    if (keyword === 'All') { 
-      setPosts(orgPosts);
-      return;
-    }
     if (keyword.trim() === '') {
       setPosts(orgPosts);
       return;
@@ -39,8 +35,7 @@ function Home() {
     const result = orgPosts.filter(item => {
       const lowerCaseKeyword = keyword.toLowerCase();
       return (
-        item.name.toLowerCase().includes(lowerCaseKeyword) ||
-        item.tags.some(tag => tag.toLowerCase().includes(lowerCaseKeyword))
+        item.name.toLowerCase().includes(lowerCaseKeyword) 
       );
     });
     setPosts(result);

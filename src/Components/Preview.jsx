@@ -1,18 +1,36 @@
 import PropTypes from 'prop-types';
+import { IoTrash } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
-function Preview({ post }) {
+function Preview({ post, handleDeleteClick }) {
   const navigate = useNavigate();
 
-  const handlePostClick = () => {
-    navigate(`/posts/${post.id}`);
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    navigate(`/edit/${post.id}`);
   };
 
   return (
     <div 
-      className='mx-[70] md:mx-[70px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md montaga-regular'
-      onClick={handlePostClick}
+      className='mx-[70] md:mx-[70px] grid grid-cols-2 gap-16 mt-4 cursor-pointer bg-black p-8 rounded-xl shadow-md montaga-regular relative'
     >
+      <div className='flex absolute top-0 right-0'>
+        <button
+          className="my-4 px-4 py-2 bg-gray-800 text-white rounded-md text-sm"
+          onClick={handleDeleteClick}
+        >
+          <IoTrash />
+        </button>
+
+        <button
+          className="m-4 px-4 py-2 bg-gray-800 text-white rounded-md text-sm"
+          onClick={handleEditClick}
+        >
+          Edit
+        </button>
+      </div>
+      
+
       <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
       <div className="flex flex-col justify-center">
         <div className="flex flex-wrap gap-2">
@@ -42,6 +60,7 @@ function Preview({ post }) {
 }
 
 Preview.propTypes = {
+  handleDeleteClick: PropTypes.func.isRequired,
   post: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

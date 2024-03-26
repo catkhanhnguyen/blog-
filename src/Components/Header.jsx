@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { useNavigate } from 'react-router-dom';
 import logo from './../assets/Images/logo.jpg';
-import { IoBrushSharp } from "react-icons/io5";
+import { IoAddCircle } from "react-icons/io5";
 
 function Header() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Header() {
             <li onClick={() => navigate('/collection')} className='hover:font-bold cursor-pointer'>Collection</li>
         </ul>
         <button onClick={() => navigate('/addrecipe')} className='bg-red-500 rounded-full text-white flex items-center mr-10'>
-            Add recipe <IoBrushSharp className='ml-1 text-[20px]'/>
+            Add <IoAddCircle className='ml-1 text-[20px] '/>
         </button>
     </animated.div>
   );

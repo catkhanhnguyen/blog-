@@ -1,21 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../Components/Header';
-import AddRecipeForm from '../Components/AddRecipeForm';
+import EditRecipeForm from '../Components/EditRecipeForm';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function AddRecipe() {
-  const baseUrl = '/recipes';
+function EditRecipe() {
+  const { id } = useParams();
+  const baseUrl = `/recipes/${id}`;
   const navigate = useNavigate();
 
-  const initialFormData = {
+  const [formData, setFormData] = useState({
     name: '',
     ingredients: [],
     instructions: [],
     prepTimeMinutes: 0,
     cookTimeMinutes: 0,
     servings: 0,
-    difficulty: 'Easy',
+    difficulty: '',
     cuisine: '',
     caloriesPerServing: 0,
     tagIds: [],
@@ -24,10 +25,18 @@ function AddRecipe() {
     rating: 0,
     reviewCount: 0,
     mealTypeIds: [],
-  }
-
-  const [formData, setFormData] = useState(initialFormData);
+  });
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    axios.get(baseUrl)
+      .then(res => {
+        setFormData(res.data);
+      })
+      .catch(error => {
+        console.error('Error fetching recipe data:', error);
+      });
+  }, [baseUrl]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,17 +48,11 @@ function AddRecipe() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const modifiedFormData = { ...formData };
-    modifiedFormData.difficulty = formData.difficulty.toString();
-    modifiedFormData.ingredients = modifiedFormData.ingredients.join('\n');
-    modifiedFormData.instructions = modifiedFormData.instructions.join('\n');
-
-    axios.post(baseUrl, modifiedFormData)
+    axios.put(baseUrl, formData)
       .then(res => {
-        console.log('Recipe added successfully:', res.data);
-        setFormData(initialFormData);
-
-        navigate('/');
+        console.log('Recipe updated successfully:', res.data);
+        setErrorMessage('');
+        navigate(`/recipes/${id}`);
       })
       .catch(error => {
         if (error.response) {
@@ -63,21 +66,23 @@ function AddRecipe() {
   };
 
   const handleCancel = () => {
-    navigate(-1);
+    navigate(`/recipes/${id}`);
   };
 
   return (
     <div className='montaga-regular mb-16'>
       <Header />
-      <AddRecipeForm
-        handleSubmit={handleSubmit}
-        formData={formData}
-        handleChange={handleChange}
-        errorMessage={errorMessage}
-        handleCancel={handleCancel}
-      />
+      {formData && (
+        <EditRecipeForm
+          handleSubmit={handleSubmit}
+          formData={formData}
+          handleChange={handleChange}
+          errorMessage={errorMessage}
+          handleCancel={handleCancel}
+        />
+      )}
     </div>
   );
 }
 
-export default AddRecipe;
+export default EditRecipe;

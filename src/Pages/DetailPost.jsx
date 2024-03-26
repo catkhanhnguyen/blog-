@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ContentPost from '../Components/ContentPost';
 import Header from '../Components/Header';
@@ -11,6 +11,7 @@ function DetailPost() {
   const baseUrl = '/recipes';
   const { id } = useParams();
   const [post, setPost] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`${baseUrl}/${id}`)
@@ -23,6 +24,17 @@ function DetailPost() {
 
   }, [id]);
 
+  const handleDeleteClick = () => {
+    axios.delete(`${baseUrl}/${id}`)
+      .then(() => {
+        console.log('Post id', `${id}`, 'deleted successfully');
+      })
+      .catch(error => {
+        console.error('Error deleting post:', error);
+      });
+      navigate(-1);
+  };
+
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -30,7 +42,7 @@ function DetailPost() {
   return (
     <div className='montaga-regular'>
       <Header />
-      <Preview post={post} />
+      <Preview post={post} handleDeleteClick={handleDeleteClick}/>
       <ContentPost post={post} />
       <Footer />
       <TopButton />
