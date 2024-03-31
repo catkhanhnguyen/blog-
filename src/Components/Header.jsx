@@ -34,7 +34,6 @@ function Header() {
             <li onClick={() => navigate('/')} className='hover:font-bold cursor-pointer'>Home</li>
             <li onClick={() => navigate('/about')} className='hover:font-bold cursor-pointer'>About Us</li>
             <li onClick={() => navigate('/contact')} className='hover:font-bold cursor-pointer'>Contact Us</li>
-            <li onClick={() => navigate('/collection')} className='hover:font-bold cursor-pointer'>Collection</li>
         </ul>
         <button onClick={() => navigate('/addrecipe')} className='bg-red-500 rounded-full text-white flex items-center mr-10'>
             Add recipe <IoBrushSharp className='ml-1 text-[20px]'/>

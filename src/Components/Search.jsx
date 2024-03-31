@@ -36,8 +36,7 @@ function Search({ onSearch, filterByMealType }) {
 
   const handleMealTypeClick = (mealTypeId) => {
     setActiveIndex(mealTypeId);
-    setMealType(mealTypeId === activeIndex ? '' : mealTypeId);
-    filterByMealType(mealTypeId === activeIndex ? '' : mealTypeId);
+    filterByMealType(mealTypeId);
   };
 
   return (
