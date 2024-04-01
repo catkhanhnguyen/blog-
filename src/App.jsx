@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Home from './Pages/Home';
 import DetailPost from './Pages/DetailPost';
@@ -9,6 +9,7 @@ import EditRecipe from './Pages/EditRecipe';
 import Collection from './Pages/Collection';
 import CollectionByTag from './Pages/CollectionByTag';
 import Login from './Pages/Login';
+import Register from './Pages/Register';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State để theo dõi trạng thái đăng nhập
@@ -17,20 +18,22 @@ function App() {
     // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách kiểm tra token trong localStorage
     const token = localStorage.getItem('token');
     setIsLoggedIn(token ? true : false);
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/about" element={isLoggedIn ? <About /> : <Navigate to="/login" />} />
-        <Route path="/contact" element={isLoggedIn ? <Contact /> : <Navigate to="/login" />} />
-        <Route path="/posts/:id" element={isLoggedIn ? <DetailPost /> : <Navigate to="/login" />} />
-        <Route path="/addrecipe" element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />} />
-        <Route path="/edit/:id" element={isLoggedIn ? <EditRecipe /> : <Navigate to="/login" />} />
-        <Route path="/collection" element={isLoggedIn ? <Collection /> : <Navigate to="/login" />} />
-        <Route path="/collection/tags/:id" element={isLoggedIn ? <CollectionByTag /> : <Navigate to="/login" />} />
+        {/* Điều hướng người dùng tới trang đăng nhập nếu chưa đăng nhập */}
+        <Route path="/" element={isLoggedIn ? <Home /> : <Login />} />
+        <Route path="/about" element={isLoggedIn ? <About /> : <Login />} />
+        <Route path="/contact" element={isLoggedIn ? <Contact /> : <Login />} />
+        <Route path="/posts/:id" element={isLoggedIn ? <DetailPost /> : <Login />} />
+        <Route path="/addrecipe" element={isLoggedIn ? <AddRecipe /> : <Login />} />
+        <Route path="/edit/:id" element={isLoggedIn ? <EditRecipe /> : <Login />} />
+        <Route path="/collection" element={isLoggedIn ? <Collection /> : <Login />} />
+        <Route path="/collection/tags/:id" element={isLoggedIn ? <CollectionByTag /> : <Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
