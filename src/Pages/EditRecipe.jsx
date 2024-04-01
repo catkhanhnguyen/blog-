@@ -1,42 +1,34 @@
 import { useState, useEffect } from 'react';
-import Header from '../Components/Header';
-import EditRecipeForm from '../Components/EditRecipeForm';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import EditRecipeForm from '../Components/EditRecipeForm';
 
 function EditRecipe() {
+  const baseUrl = '/recipes';
   const { id } = useParams();
-  const baseUrl = `/recipes/${id}`;
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: '',
-    ingredients: [],
-    instructions: [],
-    prepTimeMinutes: 0,
-    cookTimeMinutes: 0,
-    servings: 0,
-    difficulty: '',
-    cuisine: '',
-    caloriesPerServing: 0,
-    tagIds: [],
-    userId: 0,
-    image: '',
-    rating: 0,
-    reviewCount: 0,
-    mealTypeIds: [],
-  });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    axios.get(baseUrl)
-      .then(res => {
-        setFormData(res.data);
-      })
-      .catch(error => {
-        console.error('Error fetching recipe data:', error);
-      });
-  }, [baseUrl]);
+    const token = localStorage.getItem('token');
+
+    axios.get(`${baseUrl}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      const { tags, mealTypes, ...data } = response.data;
+      const tagIds = tags.map(tag => tag.id);
+      const mealTypeIds = Array.isArray(mealTypes) ? mealTypes.map(mealType => mealType.id) : [];
+      setFormData({ ...data, tagIds, mealTypeIds });
+    })
+    .catch(error => {
+      console.error('Error fetching recipe:', error);
+    });
+
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,39 +40,48 @@ function EditRecipe() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(baseUrl, formData)
-      .then(res => {
-        console.log('Recipe updated successfully:', res.data);
-        setErrorMessage('');
-        navigate(`/recipes/${id}`);
-      })
-      .catch(error => {
-        if (error.response) {
-          setErrorMessage(error.response.data.message);
-        } else if (error.request) {
-          setErrorMessage('Không nhận được phản hồi từ máy chủ. Vui lòng thử lại sau.');
-        } else {
-          setErrorMessage('Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại sau.');
-        }
-      });
+    const token = localStorage.getItem('token');
+    
+    const ingredientsValue = Array.isArray(formData.ingredients) ? formData.ingredients.join('\n') : formData.ingredients;
+    const mealTypeIdsArray = Array.isArray(formData.mealTypeIds) ? formData.mealTypeIds : formData.mealTypeIds.split(',').map(Number);
+    const tagIdsArray = Array.isArray(formData.tagIds) ? formData.tagIds : formData.tagIds.split(',').map(Number);
+    
+    axios.put(`${baseUrl}/${id}`, { ...formData, ingredients: ingredientsValue, mealTypeIds: mealTypeIdsArray, tagIds: tagIdsArray }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      console.log('Recipe updated successfully:', res.data);
+      navigate(`/posts/${id}`);
+    })
+    .catch(error => {
+      console.error('Error updating recipe:', error);
+    });
   };
+  
+  
+  
 
   const handleCancel = () => {
-    navigate(`/recipes/${id}`);
+    navigate(-1);
   };
+
+  if (!formData) {
+    return <div>Loading...</div>;
+  }
+  if (!formData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className='montaga-regular mb-16'>
-      <Header />
-      {formData && (
-        <EditRecipeForm
-          handleSubmit={handleSubmit}
-          formData={formData}
-          handleChange={handleChange}
-          errorMessage={errorMessage}
-          handleCancel={handleCancel}
-        />
-      )}
+      <EditRecipeForm
+        handleSubmit={handleSubmit}
+        formData={formData}
+        handleChange={handleChange}
+        handleCancel={handleCancel}
+      />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import TopButton from "../Components/TopButton"
 import axios from "axios"
 import TagFilter from "../Components/TagFilter"
+import AddButton from "../Components/AddButton"
 
 function Home() {
   const baseUrl = '/recipes'
@@ -83,6 +84,7 @@ function Home() {
       {posts.length > 3 ? <Blogs posts={posts.slice(3)} /> : null}
       <Footer />
       <TopButton />
+      <AddButton />
     </div>
   );
 }
