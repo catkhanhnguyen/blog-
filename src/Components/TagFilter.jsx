@@ -17,20 +17,13 @@ function TagFilter({ posts, onTagClick }) {
     onTagClick(tagId);
   };
 
-
   const uniquePosts = tagMappings.map(tag => {
     return posts.find(post => post.tags.some(t => t.name === tag.tagName));
   });
   const [hoveredTag, setHoveredTag] = useState(null);
 
-  const tagsAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(-100%)' },
-    to: { opacity: 1, transform: 'translateY(0)' },
-    config: { duration: 500 },
-  });
-
   const tagSprings = uniquePosts.map((post, index) => {
-    const isHovered = hoveredTag === tagMappings[index].tagName;
+    const isHovered = hoveredTag === tagMappings[index].tagId;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return useSpring({
       transform: isHovered ? 'scale(1.1)' : 'scale(1)',
@@ -40,13 +33,13 @@ function TagFilter({ posts, onTagClick }) {
 
 
   return (
-    <animated.div style={tagsAnimation} className="grid grid-cols-7 mt-16">
+    <div className="grid grid-cols-7 mt-16">
       {uniquePosts.map((post, index) => (
         <animated.div
           key={index}
           className="flex flex-col items-center cursor-pointer"
           onClick={() => handleTagClick(tagMappings[index].tagId)}
-          onMouseEnter={() => setHoveredTag(tagMappings[index].tagName)}
+          onMouseEnter={() => setHoveredTag(tagMappings[index].tagId)}
           onMouseLeave={() => setHoveredTag(null)}
           style={tagSprings[index]}
         >
@@ -60,7 +53,7 @@ function TagFilter({ posts, onTagClick }) {
           <span className="mt-2 text-sm font-bold">{tagMappings[index].tagName}</span>
         </animated.div>
       ))}
-    </animated.div>
+    </div>
   );
 
 }

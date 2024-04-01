@@ -8,7 +8,6 @@ function Search({ onSearch, filterByMealType }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [keyword, setKeyword] = useState('');
   // eslint-disable-next-line no-unused-vars
-  const [mealType, setMealType] = useState('');
   
   const searchAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(-100%)' },

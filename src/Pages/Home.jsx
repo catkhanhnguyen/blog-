@@ -16,7 +16,8 @@ function Home() {
   const [orgPosts, setOrgPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(baseUrl)
+    const token = localStorage.getItem('token');
+    axios.get(baseUrl, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setPosts(res.data.content);
         setOrgPosts(res.data.content);
@@ -28,10 +29,6 @@ function Home() {
 
 
   const filterPosts = (keyword) => {
-    if (keyword === 'All') { 
-      setPosts(orgPosts);
-      return;
-    }
     if (keyword.trim() === '') {
       setPosts(orgPosts);
       return;
@@ -39,8 +36,7 @@ function Home() {
     const result = orgPosts.filter(item => {
       const lowerCaseKeyword = keyword.toLowerCase();
       return (
-        item.name.toLowerCase().includes(lowerCaseKeyword) ||
-        item.tags.some(tag => tag.toLowerCase().includes(lowerCaseKeyword))
+        item.name.toLowerCase().includes(lowerCaseKeyword)
       );
     });
     setPosts(result);
@@ -51,7 +47,8 @@ function Home() {
       setPosts(orgPosts);
       return;
     }
-    axios.get(`${baseUrl}/tags/${tagId}`)
+    const token = localStorage.getItem('token');
+    axios.get(`${baseUrl}/tags/${tagId}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setPosts(res.data);
       })
@@ -65,8 +62,8 @@ function Home() {
       setPosts(orgPosts);
       return;
     }
-
-    axios.get(`${baseUrl}/mealtypes/${mealTypeId}`)
+    const token = localStorage.getItem('token');
+    axios.get(`${baseUrl}/mealtypes/${mealTypeId}`, { headers: { Authorization: `Bearer ${token}` } }) // Gửi token trong tiêu đề "Authorization"
       .then(res => {
         setPosts(res.data);
       })
@@ -74,15 +71,15 @@ function Home() {
         console.error('Error fetching posts by meal type from database:', error);
       });
   };
-  
-  
+
+
 
   return (
     <div className="montaga-regular">
       <Header />
       <Search onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
-      <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)}/>
+      <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)} />
       {posts.length > 3 ? <Blogs posts={posts.slice(3)} /> : null}
       <Footer />
       <TopButton />

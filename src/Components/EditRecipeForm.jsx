@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
+function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
   const [ingredientList, setIngredientList] = useState(formData.ingredients);
   const [instructionList, setInstructionList] = useState(formData.instructions);
   
   useEffect(() => {
-    setIngredientList(prevList => [...prevList, '']);
-    setInstructionList(prevList => [...prevList, '']);
-  }, []);
+    setIngredientList(formData.ingredients);
+    setInstructionList(formData.instructions);
+  }, [formData.ingredients, formData.instructions]);
 
   const handleAddIngredient = () => {
     setIngredientList(prevList => [...prevList, '']);
@@ -48,20 +48,9 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
     handleChange({ target: { name, value: arrayValue } });
   };
 
-  const handleSelectChange = (event) => {
-    const { name, value } = event.target;
-    handleChange({
-      target: {
-        name,
-        value
-      }
-    });
-  };
-
-
   return (
     <div className="max-w-lg mx-auto">
-      <h2 className="text-[36px] font-semibold mb-4 text-center">Add New Recipe</h2>
+      <h2 className="text-[36px] font-semibold mb-4 text-center">Edit Recipe</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-[16px] font-medium text-gray-700">Name:</label>
@@ -117,7 +106,7 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
 
         <div>
           <label htmlFor="difficulty" className="block text-[16px] font-medium text-gray-700">Difficulty:</label>
-          <select id="difficulty" name="difficulty" value={formData.difficulty} onChange={handleSelectChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required>
+          <select id="difficulty" name="difficulty" value={formData.difficulty} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required>
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
@@ -179,7 +168,7 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
   )
 }
 
-AddRecipeForm.propTypes = {
+EditRecipeForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
@@ -203,4 +192,4 @@ AddRecipeForm.propTypes = {
 };
 
 
-export default AddRecipeForm
+export default EditRecipeForm;
