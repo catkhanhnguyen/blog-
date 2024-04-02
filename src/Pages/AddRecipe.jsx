@@ -3,6 +3,8 @@ import Header from '../Components/Header';
 import AddRecipeForm from '../Components/AddRecipeForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../Components/Toast';
+
 
 function AddRecipe() {
   const baseUrl = '/recipes';
@@ -13,21 +15,19 @@ function AddRecipe() {
     ingredients: [],
     instructions: [],
     prepTimeMinutes: 0,
-    cookTimeMinutes: 0,
-    servings: 0,
+    cookTimeMinutes: 1,
+    servings: 1,
     difficulty: 'Easy',
     cuisine: '',
     caloriesPerServing: 0,
     tagIds: [],
-    userId: 0,
     image: '',
-    rating: 0,
-    reviewCount: 0,
     mealTypeIds: [],
   }
 
   const [formData, setFormData] = useState(initialFormData);
   const [errorMessage, setErrorMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState(''); // State for toast message
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,10 +44,32 @@ function AddRecipe() {
     modifiedFormData.ingredients = modifiedFormData.ingredients.join('\n');
     modifiedFormData.instructions = modifiedFormData.instructions.join('\n');
 
-    axios.post(baseUrl, modifiedFormData)
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.error('Token not found. Redirecting to login page...');
+      navigate('/login');
+      return;
+    }
+
+    // Validate prepTimeMinutes
+    if (modifiedFormData.prepTimeMinutes < 0) {
+      setToastMessage('Preptime must not be negative'); // Set toast message
+      return;
+    }
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    axios.post(baseUrl, modifiedFormData, config)
       .then(res => {
         console.log('Recipe added successfully:', res.data);
         setFormData(initialFormData);
+        setErrorMessage('');
+        setToastMessage('Recipe added successfully'); // Set toast message
 
         navigate('/');
       })
@@ -69,6 +91,7 @@ function AddRecipe() {
   return (
     <div className='montaga-regular mb-16'>
       <Header />
+      <Toast message={toastMessage} /> 
       <AddRecipeForm
         handleSubmit={handleSubmit}
         formData={formData}

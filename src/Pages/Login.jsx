@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link từ react-router-dom
+import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 
@@ -19,11 +19,9 @@ function Login() {
         password: password
       });
       if (response.status === 200) {
-
         const token = response.data.accessToken;
-        console.log(token)
         localStorage.setItem('token', token);
-        navigate('/')
+        navigate('/');
       } else {
         alert('Đăng nhập không thành công. Vui lòng thử lại.');
       }
@@ -76,9 +74,6 @@ function Login() {
               Login
             </button>
           </form>
-          <p className="text-center mb-6">
-            Havent got an account? <Link to="/register" className="text-red-500">Register</Link>
-          </p>
         </div>
       </div>
       <Footer />

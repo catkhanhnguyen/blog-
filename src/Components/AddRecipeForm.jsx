@@ -135,11 +135,6 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
         </div>
 
         <div>
-          <label htmlFor="userId" className="block text-[16px] font-medium text-gray-700">User ID:</label>
-          <input type="number" id="userId" name="userId" value={formData.userId} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
-        </div>
-
-        <div>
           <label htmlFor="image" className="block text-[16px] font-medium text-gray-700">Image URL:</label>
           <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
         </div>
@@ -194,10 +189,7 @@ AddRecipeForm.propTypes = {
     cuisine: PropTypes.string.isRequired,
     caloriesPerServing: PropTypes.number.isRequired,
     tagIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-    userId: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    reviewCount: PropTypes.number.isRequired,
     mealTypeIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
 };

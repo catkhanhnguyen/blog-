@@ -9,6 +9,7 @@ import TopButton from "../Components/TopButton"
 import axios from "axios"
 import TagFilter from "../Components/TagFilter"
 import AddButton from "../Components/AddButton"
+import AddUserButton from "../Components/AddUserButton"
 
 function Home() {
   const baseUrl = '/recipes'
@@ -85,6 +86,7 @@ function Home() {
       <Footer />
       <TopButton />
       <AddButton />
+      <AddUserButton />
     </div>
   );
 }
