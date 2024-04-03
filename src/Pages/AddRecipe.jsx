@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Header from '../Components/Header';
 import AddRecipeForm from '../Components/AddRecipeForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../Components/Toast';
+import Layout from '../Layout/Layout';
 
 
 function AddRecipe() {
@@ -27,7 +27,7 @@ function AddRecipe() {
 
   const [formData, setFormData] = useState(initialFormData);
   const [errorMessage, setErrorMessage] = useState('');
-  const [toastMessage, setToastMessage] = useState(''); // State for toast message
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,9 +52,44 @@ function AddRecipe() {
       return;
     }
 
-    // Validate prepTimeMinutes
+    if (modifiedFormData.name == '') {
+      setToastMessage('Name must not be empty');
+      return;
+    }
+
+
     if (modifiedFormData.prepTimeMinutes < 0) {
-      setToastMessage('Preptime must not be negative'); // Set toast message
+      setToastMessage('Prep Time must not be negative');
+      return;
+    }
+
+    if (modifiedFormData.cookTimeMinutes < 0) {
+      setToastMessage('Cook Time must not be negative');
+      return;
+    }
+
+    if (modifiedFormData.servings < 0) {
+      setToastMessage('Servings must not be negative');
+      return;
+    }
+
+    if (modifiedFormData.ingredients == '') {
+      setToastMessage('Ingredients must not be empty');
+      return;
+    }
+
+    if (modifiedFormData.instructions == '') {
+      setToastMessage('Instructions must not be empty');
+      return;
+    }
+
+    if (modifiedFormData.cuisine == '') {
+      setToastMessage('Cuisine must not be empty');
+      return;
+    }
+
+    if (modifiedFormData.image == '') {
+      setToastMessage('Image must not be empty');
       return;
     }
 
@@ -69,7 +104,7 @@ function AddRecipe() {
         console.log('Recipe added successfully:', res.data);
         setFormData(initialFormData);
         setErrorMessage('');
-        setToastMessage('Recipe added successfully'); // Set toast message
+        setToastMessage('Recipe added successfully'); 
 
         navigate('/');
       })
@@ -89,16 +124,17 @@ function AddRecipe() {
   };
 
   return (
-    <div className='montaga-regular mb-16'>
-      <Header />
-      <Toast message={toastMessage} /> 
-      <AddRecipeForm
-        handleSubmit={handleSubmit}
-        formData={formData}
-        handleChange={handleChange}
-        errorMessage={errorMessage}
-        handleCancel={handleCancel}
-      />
+    <div>
+      <Layout>
+        <Toast message={toastMessage} />
+        <AddRecipeForm
+          handleSubmit={handleSubmit}
+          formData={formData}
+          handleChange={handleChange}
+          errorMessage={errorMessage}
+          handleCancel={handleCancel}
+        />
+      </Layout>
     </div>
   );
 }

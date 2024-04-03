@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ContentPost from '../Components/ContentPost';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
-import TopButton from '../Components/TopButton';
 import Preview from '../Components/Preview';
+import Layout from '../Layout/Layout';
 
 function DetailPost() {
   const baseUrl = '/recipes';
@@ -21,12 +19,12 @@ function DetailPost() {
         Authorization: `Bearer ${token}` // Thêm token vào tiêu đề yêu cầu
       }
     })
-    .then(response => {
-      setPost(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching post:', error);
-    });
+      .then(response => {
+        setPost(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching post:', error);
+      });
 
   }, [id]);
 
@@ -38,13 +36,13 @@ function DetailPost() {
         Authorization: `Bearer ${token}` // Thêm token vào tiêu đề yêu cầu
       }
     })
-    .then(() => {
-      console.log('Post id', `${id}`, 'deleted successfully');
-      navigate(-1);
-    })
-    .catch(error => {
-      console.error('Error deleting post:', error);
-    });
+      .then(() => {
+        console.log('Post id', `${id}`, 'deleted successfully');
+        navigate(-1);
+      })
+      .catch(error => {
+        console.error('Error deleting post:', error);
+      });
   };
 
   if (!post) {
@@ -52,12 +50,11 @@ function DetailPost() {
   }
 
   return (
-    <div className='montaga-regular'>
-      <Header />
-      <Preview post={post} handleDeleteClick={handleDeleteClick}/>
-      <ContentPost post={post} />
-      <Footer />
-      <TopButton />
+    <div>
+      <Layout>
+        <Preview post={post} handleDeleteClick={handleDeleteClick} />
+        <ContentPost post={post} />
+      </Layout>
     </div>
   );
 }

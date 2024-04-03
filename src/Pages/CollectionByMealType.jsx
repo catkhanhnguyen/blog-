@@ -4,14 +4,14 @@ import axios from "axios";
 import Blogs from "../Components/Blogs";
 import Layout from "../Layout/Layout";
 
-function CollectionByTag() {
+function CollectionByMealType() {
   const baseUrl = '/recipes';
   const { id } = useParams();
   const [posts, setPosts] = useState(null);
-  const [tagName, setTagName] = useState('');
+  const [mealTypeName, setMealTypeName] = useState('');
 
   useEffect(() => {
-    axios.get(`${baseUrl}/tags/${id}`)
+    axios.get(`${baseUrl}/mealtypes/${id}`)
       .then(response => {
         setPosts(response.data);
       })
@@ -19,9 +19,9 @@ function CollectionByTag() {
         console.error('Error fetching post:', error);
       });
 
-    axios.get(`/tags/${id}`)
+    axios.get(`/mealtypes/${id}`)
       .then(response => {
-        setTagName(response.data.name);
+        setMealTypeName(response.data.name);
       })
       .catch(error => {
         console.error('Error fetching tag name:', error);
@@ -31,11 +31,11 @@ function CollectionByTag() {
   return (
     <div>
       <Layout>
-        <h2 className='text-[36px] font-semibold mb-4 text-center'>Tag: {tagName}</h2>
+        <h2 className='text-[36px] font-semibold mb-4 text-center'>Mealtype: {mealTypeName}</h2>
         {posts !== null && <Blogs posts={posts} />}
       </Layout>
     </div>
   )
 }
 
-export default CollectionByTag;
+export default CollectionByMealType;

@@ -1,16 +1,13 @@
 import AboutContent from "../Components/AboutContent"
-import Footer from "../Components/Footer"
-import Header from "../Components/Header"
-import TopButton from "../Components/TopButton"
+import Layout from "../Layout/Layout"
 
 
 function About() {
   return (
     <div>
-      <Header />
-      <AboutContent />
-      <Footer />
-      <TopButton />
+      <Layout>
+        <AboutContent />
+      </Layout>
     </div>
   )
 }

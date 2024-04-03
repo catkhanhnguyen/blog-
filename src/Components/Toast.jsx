@@ -5,24 +5,31 @@ function Toast({ message }) {
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
+    let timer;
+
     if (message) {
       setShowToast(true);
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setShowToast(false);
       }, 1000);
-      return () => clearTimeout(timer);
     }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [message]);
 
   return (
-    <div className={`toast ${showToast ? 'show' : ''}`}>
-      <span>{message}</span>
+    <div>
+      {showToast &&
+        <span style={{ backgroundColor: 'red', position: 'fixed', bottom: '20px', left: '20px', padding: '10px', borderRadius: '5px', color: 'white' }}>{message}</span>
+      }
     </div>
   );
 }
 
 Toast.propTypes = {
-    message: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 export default Toast;

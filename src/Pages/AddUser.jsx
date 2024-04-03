@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import AddUserForm from "../Components/AddUserForm";
-import Footer from "../Components/Footer";
-import Header from "../Components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Layout from "../Layout/Layout";
 
 function AddUser() {
   const baseUrl = "/register";
@@ -67,7 +66,7 @@ function AddUser() {
         navigate("/");
       })
       .catch((error) => {
-        if (error.response.status === 403) {
+        if (error.response.status === 401) {
           setErrorToast("Username is already exists.");
         } else if (error.response) {
           setErrorMessage(error.response.data.message);
@@ -91,18 +90,18 @@ function AddUser() {
     );
 
   return (
-    <div className="montaga-regular">
-      <Header />
-      {displayToast}
-      <AddUserForm
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        handleCancel={handleCancel}
-        errorMessage={errorMessage}
-        formData={formData}
-        errorToast={errorToast}
-      />
-      <Footer />
+    <div>
+      <Layout>
+        {displayToast}
+        <AddUserForm
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          handleCancel={handleCancel}
+          errorMessage={errorMessage}
+          formData={formData}
+          errorToast={errorToast}
+        />
+      </Layout>
     </div>
   );
 }

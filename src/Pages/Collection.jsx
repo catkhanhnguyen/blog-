@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../Components/Header';
 import CollectionContent from '../Components/CollectionContent';
-import Footer from '../Components/Footer';
+import Layout from '../Layout/Layout';
+
 
 function Collection() {
   const tagUrl = '/tags';
@@ -32,11 +32,13 @@ function Collection() {
 
   return (
     <div>
-      <Header />
-      <CollectionContent tags={tags} mealtypes={mealtypes} />
-      <Footer />
+      <Layout>
+        <CollectionContent tags={tags} mealtypes={mealtypes} />
+      </Layout>
     </div>
   );
 }
+
+
 
 export default Collection;

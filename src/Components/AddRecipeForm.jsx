@@ -6,8 +6,8 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
   const [instructionList, setInstructionList] = useState(formData.instructions);
   
   useEffect(() => {
-    setIngredientList(prevList => [...prevList, '']);
-    setInstructionList(prevList => [...prevList, '']);
+    setIngredientList(['']);
+    setInstructionList(['']);
   }, []);
 
   const handleAddIngredient = () => {
@@ -25,10 +25,12 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
       }
     });
   };
+  
 
   const handleAddInstruction = () => {
     setInstructionList(prevList => [...prevList, '']);
   };
+
 
   const handleInstructionChange = (index, value) => {
     const newList = [...instructionList];
@@ -65,7 +67,7 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-[16px] font-medium text-gray-700">Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
@@ -77,7 +79,6 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
               value={ingredient}
               onChange={(e) => handleIngredientChange(index, e.target.value)}
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-              required
             />
           ))}
           <button type="button" onClick={handleAddIngredient} className="w-full mt-2 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">+</button>
@@ -92,7 +93,6 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
               value={instructions}
               onChange={(e) => handleInstructionChange(index, e.target.value)}
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-              required
             />
           ))}
           <button type="button" onClick={handleAddInstruction} className="w-full mt-2 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">+</button>
@@ -112,7 +112,7 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
 
         <div>
           <label htmlFor="servings" className="block text-[16px] font-medium text-gray-700">Servings:</label>
-          <input type="number" id="servings" name="servings" value={formData.servings} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="number" id="servings" name="servings" value={formData.servings} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
@@ -126,17 +126,17 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
 
         <div>
           <label htmlFor="cuisine" className="block text-[16px] font-medium text-gray-700">Cuisine:</label>
-          <input type="text" id="cuisine" name="cuisine" value={formData.cuisine} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="cuisine" name="cuisine" value={formData.cuisine} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
           <label htmlFor="caloriesPerServing" className="block text-[16px] font-medium text-gray-700">Calories Per Serving:</label>
-          <input type="number" id="caloriesPerServing" name="caloriesPerServing" value={formData.caloriesPerServing} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="number" id="caloriesPerServing" name="caloriesPerServing" value={formData.caloriesPerServing} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
           <label htmlFor="image" className="block text-[16px] font-medium text-gray-700">Image URL:</label>
-          <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
@@ -148,7 +148,6 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
             value={formData.tagIds.join(',')}
             onChange={handleArrayChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
           />
         </div>
 
@@ -161,7 +160,6 @@ function AddRecipeForm({ handleSubmit, formData, handleChange, handleCancel }) {
             value={formData.mealTypeIds.join(',')}
             onChange={handleArrayChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
           />
         </div>
 

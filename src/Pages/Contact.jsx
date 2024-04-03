@@ -1,16 +1,13 @@
 import ContactContent from "../Components/ContactContent"
-import Footer from "../Components/Footer"
-import Header from "../Components/Header"
-import TopButton from './../Components/TopButton';
+import Layout from "../Layout/Layout";
 
 
 function Contact() {
   return (
     <div>
-      <Header />
-      <ContactContent />
-      <Footer />
-      <TopButton />
+      <Layout>
+        <ContactContent />
+      </Layout>
     </div>
   )
 }

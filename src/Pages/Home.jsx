@@ -1,21 +1,21 @@
 import Blogs from "../Components/Blogs"
-import Footer from "../Components/Footer"
-import Header from "../Components/Header"
 import IntroPost from "../Components/IntroPost"
 import Search from "../Components/Search"
 
 import { useEffect, useState } from "react";
-import TopButton from "../Components/TopButton"
 import axios from "axios"
 import TagFilter from "../Components/TagFilter"
 import AddButton from "../Components/AddButton"
 import AddUserButton from "../Components/AddUserButton"
+import { jwtDecode } from "jwt-decode"
+import Layout from "../Layout/Layout"
 
 function Home() {
   const baseUrl = '/recipes'
 
   const [posts, setPosts] = useState([]);
   const [orgPosts, setOrgPosts] = useState([]);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -23,6 +23,9 @@ function Home() {
       .then(res => {
         setPosts(res.data.content);
         setOrgPosts(res.data.content);
+        const decodedToken = jwtDecode(token);
+        const auth = decodedToken.auth[0].authority;
+        setUserRole(auth);
       })
       .catch(error => {
         console.error('Error fetching posts from database:', error);
@@ -74,19 +77,16 @@ function Home() {
       });
   };
 
-
-
   return (
     <div className="montaga-regular">
-      <Header />
+      <Layout>
       <Search onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
       <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)} />
       {posts.length > 3 ? <Blogs posts={posts.slice(3)} /> : null}
-      <Footer />
-      <TopButton />
-      <AddButton />
-      <AddUserButton />
+      </Layout>
+      {userRole === 'SYS_ADMIN' && <AddButton />}
+      {userRole === 'SYS_ADMIN' && <AddUserButton />}
     </div>
   );
 }

@@ -25,7 +25,7 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-[16px] font-medium text-gray-700">Name:</label>
-          <input type="text" id="name" name="name" value={name} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="name" name="name" value={name} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" />
         </div>
 
         <div>
@@ -36,7 +36,7 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
             value={ingredientsValue}
             onChange={handleChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
+            
           />
         </div>
 
@@ -48,25 +48,25 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
             value={instructionsValue}
             onChange={handleChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
+            
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="prepTimeMinutes" className="block text-[16px] font-medium text-gray-700">Prep Time (Minutes):</label>
-            <input type="number" id="prepTimeMinutes" name="prepTimeMinutes" value={prepTimeMinutes} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+            <input type="number" id="prepTimeMinutes" name="prepTimeMinutes" value={prepTimeMinutes} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" />
           </div>
 
           <div>
             <label htmlFor="cookTimeMinutes" className="block text-[16px] font-medium text-gray-700">Cook Time (Minutes):</label>
-            <input type="number" id="cookTimeMinutes" name="cookTimeMinutes" value={cookTimeMinutes} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+            <input type="number" id="cookTimeMinutes" name="cookTimeMinutes" value={cookTimeMinutes} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
           </div>
         </div>
 
         <div>
           <label htmlFor="servings" className="block text-[16px] font-medium text-gray-700">Servings:</label>
-          <input type="number" id="servings" name="servings" value={servings} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="number" id="servings" name="servings" value={servings} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"/>
         </div>
 
         <div>
@@ -80,17 +80,17 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
 
         <div>
           <label htmlFor="cuisine" className="block text-[16px] font-medium text-gray-700">Cuisine:</label>
-          <input type="text" id="cuisine" name="cuisine" value={cuisine} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="cuisine" name="cuisine" value={cuisine} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label htmlFor="caloriesPerServing" className="block text-[16px] font-medium text-gray-700">Calories Per Serving:</label>
-          <input type="number" id="caloriesPerServing" name="caloriesPerServing" value={caloriesPerServing} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="number" id="caloriesPerServing" name="caloriesPerServing" value={caloriesPerServing} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label htmlFor="image" className="block text-[16px] font-medium text-gray-700">Image URL:</label>
-          <input type="text" id="image" name="image" value={image} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" required />
+          <input type="text" id="image" name="image" value={image} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md" />
         </div>
 
         <div>
@@ -102,7 +102,6 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
             value={Array.isArray(tagIds) ? tagIds.join(',') : tagIds}
             onChange={handleChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
           />
 
         </div>
@@ -116,7 +115,6 @@ function EditRecipeForm({ handleSubmit, formData, handleChange, handleCancel, er
             value={Array.isArray(mealTypeIds) ? mealTypeIds.join(',') : mealTypeIds}
             onChange={handleChange}
             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-[16px] p-2 border-gray-300 rounded-md"
-            required
           />
         </div>
 
