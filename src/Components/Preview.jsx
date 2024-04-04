@@ -34,8 +34,8 @@ function Preview({ post, handleDeleteClick }) {
       <img src={post.image} alt="Recipe" className='rounded-lg object-cover h-full' />
       <div className="flex flex-col justify-center">
         <div className="flex flex-wrap gap-2">
-          {post.mealTypes.map((type) => (
-            <span key={type.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{type.name}</span>
+          {post.mealTypes.map((mealtype) => (
+            <span key={mealtype.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{mealtype.name}</span>
           ))}
           {post.tags.map((tag) => (
             <span key={tag.id} className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">{tag.name}</span>

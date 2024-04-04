@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function AddUserForm({ handleSubmit, handleChange, handleCancel, formData, errorToast }) {
+function AddUserForm({ handleSubmit, handleChange, handleCancel, formData }) {
   const toggleRole = (role) => {
     const updatedRoles = formData.roles.includes(role)
       ? formData.roles.filter(r => r !== role)
@@ -16,11 +16,6 @@ function AddUserForm({ handleSubmit, handleChange, handleCancel, formData, error
 
   return (
     <div>
-      {errorToast && (
-        <div className="absolute bottom-4 left-4 bg-red-500 text-white py-2 px-4 rounded-md">
-          {errorToast}
-        </div>
-      )}
       <div className="max-w-lg mx-auto my-28 relative">
         <h2 className="text-3xl font-semibold mb-4 text-center">Add New User</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -33,7 +28,6 @@ function AddUserForm({ handleSubmit, handleChange, handleCancel, formData, error
               value={formData.username}
               onChange={handleChange}
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-lg p-2 border-gray-300 rounded-md"
-              required
             />
           </div>
 
@@ -46,7 +40,6 @@ function AddUserForm({ handleSubmit, handleChange, handleCancel, formData, error
               value={formData.password}
               onChange={handleChange}
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-lg p-2 border-gray-300 rounded-md"
-              required
             />
           </div>
 

@@ -1,35 +1,29 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-function Toast({ message }) {
-  const [showToast, setShowToast] = useState(false);
+function Toast({ toastMessage, setToastMessage }) {
 
   useEffect(() => {
-    let timer;
-
-    if (message) {
-      setShowToast(true);
-      timer = setTimeout(() => {
-        setShowToast(false);
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage("");
       }, 1000);
+      return () => clearTimeout(timer);
     }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [message]);
+  }, [toastMessage]);
 
   return (
     <div>
-      {showToast &&
-        <span style={{ backgroundColor: 'red', position: 'fixed', bottom: '20px', left: '20px', padding: '10px', borderRadius: '5px', color: 'white' }}>{message}</span>
+      {toastMessage &&
+        <span style={{ backgroundColor: 'red', position: 'fixed', bottom: '20px', left: '20px', padding: '10px', borderRadius: '5px', color: 'white' }}>{toastMessage}</span>
       }
     </div>
   );
 }
 
 Toast.propTypes = {
-  message: PropTypes.string.isRequired,
+  toastMessage: PropTypes.string.isRequired,
+  setToastMessage: PropTypes.func.isRequired,
 };
 
 export default Toast;

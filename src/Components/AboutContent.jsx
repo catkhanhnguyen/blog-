@@ -5,7 +5,7 @@ function AboutContent() {
     <div className='font-serif mx-[70] md:mx-[100px] mt-4 mb-36'>
       <h2 className='text-[40px] mt-5 text-center'>About Me</h2>
       <h2 className='text-[25px] mt-5 text-center'>HI, MY NAME IS LINDSAY!</h2>
-      <p className='text-[18px] text-gray-600 mt-5 align-justify'>
+      <div className='text-[18px] text-gray-600 mt-5 align-justify'>
         <div className="p-2">
             And <b>Food Blog</b> is my little corner of the internet! 
         </div>
@@ -15,7 +15,7 @@ function AboutContent() {
         <div className="p-2">
         I live in Saint Paul, MN with my husband Bjork and our dog Sage. My favorite things in life are a big plate of pad Thai, sunny days, and going to the dog park.
         </div>     
-      </p>
+      </div>
 
       <h2 className='text-[25px] mt-5 text-center'>I LOVE FOOD!</h2>
       <p className='text-[18px] text-gray-600 mt-5 align-justify'>

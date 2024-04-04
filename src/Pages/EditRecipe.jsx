@@ -10,21 +10,32 @@ function EditRecipe() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState(null);
+  const initialFormData = {
+    name: '',
+    ingredients: [],
+    instructions: [],
+    prepTimeMinutes: 0,
+    cookTimeMinutes: 1,
+    servings: 1,
+    difficulty: 'Easy',
+    cuisine: '',
+    caloriesPerServing: 0,
+    tagIds: [],
+    image: '',
+    mealTypeIds: [],
+  }
+
+  const [formData, setFormData] = useState(initialFormData);
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    axios.get(`${baseUrl}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios.get(`${baseUrl}/${id}`, {headers: {Authorization: `Bearer ${token}`}})
       .then(response => {
         const { tags, mealTypes, ...data } = response.data;
         const tagIds = tags.map(tag => tag.id);
-        const mealTypeIds = Array.isArray(mealTypes) ? mealTypes.map(mealType => mealType.id) : [];
+        const mealTypeIds = mealTypes.map(mealTypes => mealTypes.id);
         setFormData({ ...data, tagIds, mealTypeIds });
       })
       .catch(error => {
@@ -87,11 +98,10 @@ function EditRecipe() {
 
     const token = localStorage.getItem('token');
 
-    const ingredientsValue = Array.isArray(formData.ingredients) ? formData.ingredients.join('\n') : formData.ingredients;
     const mealTypeIdsArray = Array.isArray(formData.mealTypeIds) ? formData.mealTypeIds : formData.mealTypeIds.split(',').map(Number);
     const tagIdsArray = Array.isArray(formData.tagIds) ? formData.tagIds : formData.tagIds.split(',').map(Number);
 
-    axios.put(`${baseUrl}/${id}`, { ...formData, ingredients: ingredientsValue, mealTypeIds: mealTypeIdsArray, tagIds: tagIdsArray }, {
+    axios.put(`${baseUrl}/${id}`, { ...formData, mealTypeIds: mealTypeIdsArray, tagIds: tagIdsArray }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -112,17 +122,11 @@ function EditRecipe() {
     navigate(-1);
   };
 
-  if (!formData) {
-    return <div>Loading...</div>;
-  }
-  if (!formData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
       <Layout>
-        <Toast message={toastMessage} />
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
         <EditRecipeForm
           handleSubmit={handleSubmit}
           formData={formData}

@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import AddUserForm from "../Components/AddUserForm";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Layout from "../Layout/Layout";
+import Toast from "../Components/Toast";
 
 function AddUser() {
   const baseUrl = "/register";
@@ -15,17 +16,7 @@ function AddUser() {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [errorToast, setErrorToast] = useState("");
-
-  useEffect(() => {
-    if (errorToast) {
-      const timer = setTimeout(() => {
-        setErrorToast("");
-      }, 1000); 
-      return () => clearTimeout(timer);
-    }
-  }, [errorToast]);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,19 +38,24 @@ function AddUser() {
       return;
     }
 
-    if (modifiedFormData.roles.length === 0) {
-      setErrorToast("Please assign at least 1 role to user");
+    if (modifiedFormData.username === '') {
+      setToastMessage("Username must not be empty");
       return;
     }
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    if (modifiedFormData.password === '') {
+      setToastMessage("Password must not be empty");
+      return;
+    }
+
+    if (modifiedFormData.roles.length === 0) {
+      setToastMessage("Please assign at least 1 role to user");
+      return;
+    }
+
 
     axios
-      .post(baseUrl, modifiedFormData, config)
+      .post(baseUrl, modifiedFormData, {headers: {Authorization: `Bearer ${token}`}})
       .then((res) => {
         console.log("User added successfully:", res.data);
         setFormData(initialFormData);
@@ -67,9 +63,9 @@ function AddUser() {
       })
       .catch((error) => {
         if (error.response.status === 401) {
-          setErrorToast("Username is already exists.");
+          setToastMessage("Username is already exists.");
         } else {
-          setErrorMessage("Error: ", error);
+          setToastMessage("Error: ", error);
         }
       });
   };
@@ -78,25 +74,17 @@ function AddUser() {
     navigate(-1);
   };
 
-  const displayToast =
-    errorToast && (
-      <div className="absolute bottom-4 left-4 bg-red-500 text-white py-2 px-4 rounded-md">
-        {errorToast}
-      </div>
-    );
 
   return (
     <div>
       <Layout>
-        {displayToast}
-        <AddUserForm
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          handleCancel={handleCancel}
-          errorMessage={errorMessage}
-          formData={formData}
-          errorToast={errorToast}
-        />
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+          <AddUserForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleCancel={handleCancel}
+            formData={formData}
+          />
       </Layout>
     </div>
   );

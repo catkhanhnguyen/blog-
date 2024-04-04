@@ -26,7 +26,6 @@ function AddRecipe() {
   }
 
   const [formData, setFormData] = useState(initialFormData);
-  const [errorMessage, setErrorMessage] = useState('');
   const [toastMessage, setToastMessage] = useState('');
 
   const handleChange = (e) => {
@@ -40,7 +39,6 @@ function AddRecipe() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const modifiedFormData = { ...formData };
-    modifiedFormData.difficulty = formData.difficulty.toString();
     modifiedFormData.ingredients = modifiedFormData.ingredients.join('\n');
     modifiedFormData.instructions = modifiedFormData.instructions.join('\n');
 
@@ -93,28 +91,14 @@ function AddRecipe() {
       return;
     }
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-
-    axios.post(baseUrl, modifiedFormData, config)
+    axios.post(baseUrl, modifiedFormData, {headers: {Authorization: `Bearer ${token}`}})
       .then(res => {
         console.log('Recipe added successfully:', res.data);
-        setFormData(initialFormData);
-        setErrorMessage('');
-        setToastMessage('Recipe added successfully'); 
-
         navigate('/');
       })
       .catch(error => {
         if (error.response) {
-          setErrorMessage(error.response.data.message);
-        } else if (error.request) {
-          setErrorMessage('Không nhận được phản hồi từ máy chủ. Vui lòng thử lại sau.');
-        } else {
-          setErrorMessage('Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại sau.');
+          console.log("Error", error)
         }
       });
   };
@@ -126,12 +110,11 @@ function AddRecipe() {
   return (
     <div>
       <Layout>
-        <Toast message={toastMessage} />
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage}/>
         <AddRecipeForm
           handleSubmit={handleSubmit}
           formData={formData}
           handleChange={handleChange}
-          errorMessage={errorMessage}
           handleCancel={handleCancel}
         />
       </Layout>

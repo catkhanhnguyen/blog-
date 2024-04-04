@@ -12,13 +12,7 @@ function DetailPost() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    axios.get(`${baseUrl}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios.get(`${baseUrl}/${id}`)
       .then(response => {
         setPost(response.data);
       })
@@ -29,13 +23,9 @@ function DetailPost() {
   }, [id]);
 
   const handleDeleteClick = () => {
-    const token = localStorage.getItem('token'); // Lấy token từ localStorage
+    const token = localStorage.getItem('token');
 
-    axios.delete(`${baseUrl}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}` // Thêm token vào tiêu đề yêu cầu
-      }
-    })
+    axios.delete(`${baseUrl}/${id}`, {headers: {Authorization: `Bearer ${token}` }})
       .then(() => {
         console.log('Post id', `${id}`, 'deleted successfully');
         navigate(-1);

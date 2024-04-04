@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../Components/LoginForm';
 import Layout from '../Layout/Layout';
+import Toast from '../Components/Toast';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
   const baseUrl = "/login";
   const navigate = useNavigate();
 
@@ -23,19 +25,26 @@ function Login() {
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
           navigate('/');
-        } else {
-          alert('Login not success. Please try again');
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Login not success. Please try again');
+        if (username == '') {
+          setToastMessage('Username must not be empty')
+        }
+        if (password == '') {
+          setToastMessage('Password must not be empty')
+        }
+        else {
+          setToastMessage('Login not success. Please try again');
+        }
       });
   };
 
   return (
     <div>
       <Layout>
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
         <LoginForm
           username={username}
           password={password}
