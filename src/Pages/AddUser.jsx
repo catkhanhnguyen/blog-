@@ -22,7 +22,7 @@ function AddUser() {
     if (errorToast) {
       const timer = setTimeout(() => {
         setErrorToast("");
-      }, 1000); // 1 giây
+      }, 1000); 
       return () => clearTimeout(timer);
     }
   }, [errorToast]);
@@ -49,7 +49,7 @@ function AddUser() {
 
     if (modifiedFormData.roles.length === 0) {
       setErrorToast("Please assign at least 1 role to user");
-      return; // Không gửi yêu cầu nếu không có vai trò được chọn
+      return;
     }
 
     const config = {
@@ -68,12 +68,8 @@ function AddUser() {
       .catch((error) => {
         if (error.response.status === 401) {
           setErrorToast("Username is already exists.");
-        } else if (error.response) {
-          setErrorMessage(error.response.data.message);
-        } else if (error.request) {
-          setErrorMessage("Không nhận được phản hồi từ máy chủ. Vui lòng thử lại sau.");
         } else {
-          setErrorMessage("Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại sau.");
+          setErrorMessage("Error: ", error);
         }
       });
   };

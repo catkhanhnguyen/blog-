@@ -80,9 +80,9 @@ function Home() {
   return (
     <div className="montaga-regular">
       <Layout>
-      <Search onSearch={(keyword) => filterPosts(keyword)} filterByMealType={filterByMealType} />
+      <Search onSearch={filterPosts} filterByMealType={filterByMealType} />
       {posts.length > 0 ? <IntroPost posts={posts} /> : null}
-      <TagFilter posts={orgPosts} onTagClick={(tagId) => filterByTag(tagId)} />
+      <TagFilter posts={orgPosts} onTagClick={filterByTag} />
       {posts.length > 3 ? <Blogs posts={posts.slice(3)} /> : null}
       </Layout>
       {userRole === 'SYS_ADMIN' && <AddButton />}

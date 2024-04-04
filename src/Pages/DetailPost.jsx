@@ -12,11 +12,11 @@ function DetailPost() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Lấy token từ localStorage
+    const token = localStorage.getItem('token');
 
     axios.get(`${baseUrl}/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}` // Thêm token vào tiêu đề yêu cầu
+        Authorization: `Bearer ${token}`
       }
     })
       .then(response => {
